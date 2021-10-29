@@ -70,7 +70,7 @@ a:hover {
   background-size: 100% 100% !important;
 }
 
-h4 a {
+h2 a {
   background-size: 100% 10%;
 }
 
@@ -80,6 +80,13 @@ ul.post-list li a {
 
 div.highlight pre {
   font-size: 0.8em;
+}
+
+:not(pre) > code {
+  background-color: #ebedf0;
+  border-radius: 0.4rem;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.9em;
 }
 
 footer a {
