@@ -6,7 +6,7 @@ author = "Timo Furrer"
 enableEmoji = true
 
 [params]
-footer = "&copy; Timo Furrer | [Home](/) | [Posts](/posts) | [Penguin Photos](https://www.istockphoto.com/de/fotos/penguin)"
+footer = "&copy; Timo Furrer | [Home](/) | [Posts](/posts) | [Categories](/categories) | [Penguin Photos](https://www.istockphoto.com/de/fotos/penguin)"
 
     [params.social.email]
     name = "E-Mail"

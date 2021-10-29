@@ -6,7 +6,10 @@
     <time datetime="{{ .Date }}"
       >{{ .Date.Format "Monday, January 2, 2006" }}</time
     >
-    <span>{{ emojify ":clock:" }}</span> {{ .ReadingTime }} min read
+    <span>{{ emojify ":stopwatch:" }}</span> {{ .ReadingTime }} min read
+    <span>{{ emojify ":books:" }}</span> published in {{ with .Params.categories
+    }} {{ $sort := sort . }} {{ $links := apply $sort "partial" "tag" "." }} {{
+    delimit $links ", " " and " }} {{ end }}
   </div>
   <div>
     <article id="content">{{ .Content }}</article>

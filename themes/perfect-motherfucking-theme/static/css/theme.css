@@ -37,6 +37,10 @@ div.post-details span {
   padding-right: 0.2em;
 }
 
+div.post-details a {
+  background-size: 100% 10%;
+}
+
 h2.recent-posts-heading {
   font-size: 1em;
   margin-bottom: 0.5em;

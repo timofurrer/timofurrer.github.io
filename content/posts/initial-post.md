@@ -1,6 +1,8 @@
 ---
 title: "Initial Post"
 date: 2021-10-22T09:03:16+02:00
+tags: [ "initial", "post" ]
+categories: [ "python", "meta" ]
 draft: false
 ---
 
