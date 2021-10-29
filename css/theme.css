@@ -36,6 +36,10 @@ div.post-details {
   font-size: 0.8em;
 }
 
+h2.recent-posts-heading {
+  font-size: 1.2em;
+}
+
 ul.post-list {
   list-style-type: none;
   padding: 0;
