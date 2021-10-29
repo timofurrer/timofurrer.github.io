@@ -18,10 +18,6 @@ h4 {
   line-height: 1.2;
 }
 
-h4 {
-  margin-bottom: 0.5em;
-}
-
 footer {
   font-size: 0.8em;
   color: #777;
@@ -37,7 +33,8 @@ div.post-details {
 }
 
 h2.recent-posts-heading {
-  font-size: 1.2em;
+  font-size: 1em;
+  margin-bottom: 0.5em;
 }
 
 ul.post-list {
