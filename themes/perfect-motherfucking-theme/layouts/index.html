@@ -9,7 +9,9 @@
   <div class="homepage-content">{{ .Content }}</div>
   <div>
     <summary>
-      <h4>Recent Posts [<a href="/posts">All Posts</a>]</h4>
+      <h2 class="recent-posts-heading">
+        Recent Posts [<a href="/posts">All Posts</a>]
+      </h2>
       <ul class="post-list">
         {{ range where .Site.RegularPages "Section" "posts" }}
         <li>
