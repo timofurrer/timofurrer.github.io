@@ -8,8 +8,8 @@
     >
     <span>{{ emojify ":stopwatch:" }}</span> {{ .ReadingTime }} min read
     <span>{{ emojify ":books:" }}</span> published in {{ with .Params.categories
-    }} {{ $sort := sort . }} {{ $links := apply $sort "partial" "tag" "." }} {{
-    delimit $links ", " " and " }} {{ end }}
+    }} {{ $sort := sort . }} {{ $links := apply $sort "partial" "category" "."
+    }} {{ delimit $links ", " " and " }} {{ end }}
   </div>
   <div>
     <article id="content">{{ .Content }}</article>
