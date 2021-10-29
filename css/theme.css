@@ -1,5 +1,6 @@
 :root {
   --link-background-color: #ffe462;
+  --details-color: #555;
 }
 
 body {
@@ -20,15 +21,15 @@ h4 {
 
 footer {
   font-size: 0.8em;
-  color: #777;
+  color: var(--details-color);
 }
 
 time {
-  color: #777;
+  color: var(--details-color);
 }
 
 div.post-details {
-  color: #777;
+  color: var(--details-color);
   font-size: 0.8em;
 }
 
