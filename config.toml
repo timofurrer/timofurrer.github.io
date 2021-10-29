@@ -2,3 +2,24 @@ baseURL = 'http://example.org/'
 languageCode = 'en-us'
 title = "Timo's Blog"
 theme = "perfect-motherfucking-theme"
+author = "Timo Furrer"
+enableEmoji = true
+
+[params]
+footer = "&copy; Timo Furrer | [Home](/) | [Posts](/) | [Penguin Photos](https://www.istockphoto.com/de/fotos/penguin)"
+
+    [params.social.email]
+    name = "E-Mail"
+    url = "mailto:tuxtimo@gmail.com"
+
+    [params.social.github]
+    name = "GitHub"
+    url = "https://github.com/timofurrer"
+
+    [params.social.twitter]
+    name = "Twitter"
+    url = "https://twitter.com/tuxtimo"
+
+    [params.social.linkedin]
+    name = "LinkedIn"
+    url = "https://www.linkedin.com/in/timo-furrer-4bb13362"

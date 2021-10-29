@@ -1,0 +1,5 @@
+<footer>
+  {{ with .Site.Params.footer }}
+  <hr />
+  {{ . | markdownify }} {{ end }}
+</footer>
