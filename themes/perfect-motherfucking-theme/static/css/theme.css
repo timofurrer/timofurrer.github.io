@@ -33,6 +33,10 @@ div.post-details {
   font-size: 0.8em;
 }
 
+div.post-details span {
+  padding-right: 0.2em;
+}
+
 h2.recent-posts-heading {
   font-size: 1em;
   margin-bottom: 0.5em;
@@ -70,13 +74,36 @@ ul.post-list li a {
   background-size: 100% 10%;
 }
 
+div.highlight pre {
+  font-size: 0.8em;
+}
+
 footer a {
   background-size: 100% 10%;
 }
 
-@media (prefers-color-scheme: dark) {
+a[href^="#fn:"],
+a[href^="#fnref:"] {
+  background-size: 100% 10%;
+  font-family: monospace;
+}
+
+a[href^="#fn:"]:before,
+a[href^="#fnref:"]:before {
+  content: "[";
+}
+a[href^="#fn:"]:after,
+a[href^="#fnref:"]:after {
+  content: "]";
+}
+
+section[class="footnotes"] ol {
+  font-size: 0.8em;
+}
+
+/* @media (prefers-color-scheme: dark) {
   body {
     color: #aaa;
     background: #333;
   }
-}
+} */

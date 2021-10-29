@@ -2,10 +2,11 @@
 <section id="main">
   <h1 id="title">{{ .Title }}</h1>
   <div class="post-details">
+    <span>{{ emojify ":calendar:" }}</span>
     <time datetime="{{ .Date }}"
       >{{ .Date.Format "Monday, January 2, 2006" }}</time
     >
-    | {{ .ReadingTime }} min read
+    <span>{{ emojify ":clock:" }}</span> {{ .ReadingTime }} min read
   </div>
   <div>
     <article id="content">{{ .Content }}</article>

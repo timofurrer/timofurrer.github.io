@@ -23,3 +23,7 @@ footer = "&copy; Timo Furrer | [Home](/) | [Posts](/posts) | [Penguin Photos](ht
     [params.social.linkedin]
     name = "LinkedIn"
     url = "https://www.linkedin.com/in/timo-furrer-4bb13362"
+
+[markup.highlight]
+style = "github"
+lineNos = true
