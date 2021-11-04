@@ -112,6 +112,29 @@ section[class="footnotes"] ol {
   font-size: 0.8em;
 }
 
+img[src$="#center"] {
+  display: block;
+  margin: 1rem auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.gitgraph {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+figcaption {
+  font-size: 0.8em;
+  color: var(--details-color);
+  text-align: center;
+}
+
+figcaption:before {
+  content: "Figure: ";
+}
+
 /* @media (prefers-color-scheme: dark) {
   body {
     color: #aaa;
