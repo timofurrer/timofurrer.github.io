@@ -1,2 +1,4 @@
 +++
+gitGraph:
+  enable: false
 +++

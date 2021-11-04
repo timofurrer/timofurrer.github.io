@@ -1,0 +1,19 @@
+<div id="gitgraph-container-{{ .Get "id" }}" class="gitgraph"></div>
+<figcaption>{{ .Get "title" }}</figcaption>
+
+<script>
+  (function() {
+    var withoutAuthor = GitgraphJS.templateExtend(GitgraphJS.TemplateName.Metro, {
+        commit: {
+        message: {
+            displayAuthor: false,
+        },
+        },
+    });
+    const graphContainer = document.getElementById("gitgraph-container-{{ .Get "id" }}");
+    const gitgraph = GitgraphJS.createGitgraph(graphContainer, {
+        template: withoutAuthor,
+    });
+    eval("{{ .Inner }}");
+  })();
+</script>

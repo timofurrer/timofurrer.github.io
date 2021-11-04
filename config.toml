@@ -8,21 +8,24 @@ enableEmoji = true
 [params]
 footer = "&copy; Timo Furrer | [Home](/) | [Posts](/posts) | [Categories](/categories) | [Penguin Photos](https://www.istockphoto.com/de/fotos/penguin)"
 
-    [params.social.email]
-    name = "E-Mail"
-    url = "mailto:tuxtimo@gmail.com"
+[params.social.email]
+name = "E-Mail"
+url = "mailto:tuxtimo@gmail.com"
 
-    [params.social.github]
-    name = "GitHub"
-    url = "https://github.com/timofurrer"
+[params.social.github]
+name = "GitHub"
+url = "https://github.com/timofurrer"
 
-    [params.social.twitter]
-    name = "Twitter"
-    url = "https://twitter.com/tuxtimo"
+[params.social.twitter]
+name = "Twitter"
+url = "https://twitter.com/tuxtimo"
 
-    [params.social.linkedin]
-    name = "LinkedIn"
-    url = "https://www.linkedin.com/in/timo-furrer-4bb13362"
+[params.social.linkedin]
+name = "LinkedIn"
+url = "https://www.linkedin.com/in/timo-furrer-4bb13362"
+
+[params.publicCDN.gitGraph]
+javascript = '<script src="https://cdn.jsdelivr.net/npm/@gitgraph/js" crossorigin="anonymous"></script>'
 
 [markup.highlight]
 style = "github"

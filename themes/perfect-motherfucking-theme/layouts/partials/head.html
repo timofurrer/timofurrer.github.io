@@ -12,4 +12,6 @@
   <link rel="%s" type="%s" href="%s" title="%s" />
   ` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }} {{ end -}}
   <meta name="theme-color" content="#FFFFFF" />
+  {{- if and ( .Params.gitGraph.enable ) (or .IsPage .IsHome) -}} {{
+  .Site.Params.publicCDN.gitGraph.javascript | safeHTML }} {{- end }}
 </head>
