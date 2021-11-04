@@ -4,7 +4,8 @@ title: Welcome
 
 Hi there :wave: . My name is **Timo Furrer**.
 I'm an Enthusiastic Hacker who loves Free Open Source Software,
-Linux :penguin: , Python :snake: , Go and Programming Languages.
+Linux :penguin: , Python :snake: , Go and Programming Languages
+in general.
 
 You can find me on
 [GitHub]({{< param social.github.url >}}),
