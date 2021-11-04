@@ -5,6 +5,9 @@ theme = "perfect-motherfucking-theme"
 author = "Timo Furrer"
 enableEmoji = true
 
+[permalinks]
+posts = "/posts/:year/:month/:day/:title/"
+
 [params]
 footer = "&copy; Timo Furrer | [Home](/) | [Posts](/posts) | [Categories](/categories) | [Penguin Photos](https://www.istockphoto.com/de/fotos/penguin)"
 
