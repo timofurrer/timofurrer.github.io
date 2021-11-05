@@ -1,11 +1,11 @@
 ---
 title: "Python Pass vs. Ellipsis"
-date: 2021-11-04T21:41:12+01:00
-draft: true
+date: 2021-11-05T09:00:12+01:00
+draft: false
 categories: [ "python", "software engineering" ]
 ---
 
-I've recently had a discussion with a colleague during a code review
+I've recently had a nerdy discussion with a colleague during a code review
 about when to use
 Pythons `pass` statement[^1] vs. the ellipsis literal `...`[^2]
 
@@ -13,11 +13,11 @@ You've probably seen the `pass` statement in Python code as a
 means to indicate that a block is intentionally left empty
 to avoid a `SyntaxError`.
 Like in the following `except` block where we expect that
-an exception might be raised but just want to ignore it.
+an exception might be raised but just want to ignore it:
 
 ```python
 try:
-    client.get(params={"id": 42})
+    client.get(id=42)
 except ApiException:
     pass
 ```
@@ -27,7 +27,7 @@ some people started doing this:
 
 ```python
 try:
-    client.get(params={"id": 42})
+    client.get(id=42)
 except ApiException:
     ...
 ```
@@ -43,11 +43,11 @@ Therefore, the `...` can be thought of a placeholder.
 
 Whenever I see the `...` my head auto-plays a [*Dun Dun Dun* sound effect](https://youtu.be/Bnmp_oAHRC0) -
 to emphasize the suspension of code :speak_no_evil:.
-It would be a pity if it's a suspension of code until all eternity.
+It would be a pity if it's a suspension of code until all eternity if you use at as a `pass` replacement.
 
 ### Where should I use the `...` ?
 
-As already mentioned you should use the `...` as a placeholder where eventually
+As I've already mentioned you should use the `...` as a placeholder where eventually
 some could should appear, but you don't necessarily want to `raise NotImplementedError`.
 
 A similar situation where I use it is with Pythons [Abstract Base Classes](https://docs.python.org/3/library/abc.html)
