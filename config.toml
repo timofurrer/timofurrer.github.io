@@ -9,7 +9,7 @@ enableEmoji = true
 posts = "/posts/:year/:month/:day/:title/"
 
 [params]
-footer = "&copy; Timo Furrer | GPG: [3F3C EA38 A36C A8E9](https://keybase.io/tuxtimo) | [Home](/) | [Posts](/posts) | [Categories](/categories) | [Penguin Photos](https://www.istockphoto.com/de/fotos/penguin)"
+footer = "&copy; Timo Furrer | GPG: [3F3C EA38 A36C A8E9](https://keybase.io/tuxtimo) | [Home](/) | [Posts](/posts) | [Categories](/categories) | [RSS](/posts/index.xml) | [Penguin Photos](https://www.istockphoto.com/de/fotos/penguin)"
 
 [params.social.email]
 name = "E-Mail"
