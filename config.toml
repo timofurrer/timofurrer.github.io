@@ -21,7 +21,7 @@ url = "https://github.com/timofurrer"
 
 [params.social.gitlab]
 name = "GitLab"
-url = "https://github.com/tuxtimo"
+url = "https://gitlab.com/tuxtimo"
 
 [params.social.twitter]
 name = "Twitter"
