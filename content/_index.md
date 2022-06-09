@@ -9,6 +9,7 @@ in general.
 
 You can find me on
 [GitHub]({{< param social.github.url >}}),
+[GitLab]({{< param social.gitlab.url >}}),
 [Twitter]({{< param social.twitter.url >}}) and
 [LinkedIn]({{< param social.linkedin.url >}}) or reach out via
 [E-Mail]({{< param social.email.url >}}).

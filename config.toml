@@ -19,6 +19,10 @@ url = "mailto:tuxtimo@gmail.com"
 name = "GitHub"
 url = "https://github.com/timofurrer"
 
+[params.social.gitlab]
+name = "GitLab"
+url = "https://github.com/tuxtimo"
+
 [params.social.twitter]
 name = "Twitter"
 url = "https://twitter.com/tuxtimo"
