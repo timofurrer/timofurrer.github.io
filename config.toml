@@ -1,4 +1,4 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://tuxtimo.me/'
 languageCode = 'en-us'
 title = "Timo's Blog"
 theme = "perfect-motherfucking-theme"
