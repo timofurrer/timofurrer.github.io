@@ -1,127 +1,48 @@
-<!doctype html><html lang=en><head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<title>Git Rebase vs. Merge | Timo's Blog</title>
-<meta name=description content="In every team I&rsquo;ve been part of for the last few years we&rsquo;ve always had a debate sooner or later if we should use a git merge or git rebase to keep a branch up-to-date with it&rsquo;s source branch.
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Git Rebase vs. Merge | Timo's Blog</title><meta name=description content="In every team I&rsquo;ve been part of for the last few years we&rsquo;ve always had a debate sooner or later if we should use a git merge or git rebase to keep a branch up-to-date with it&rsquo;s source branch.
 This post sheds some light on the pros and cons of both and my opinion on what you should use for your team.
-Before I go on, let&rsquo;s get on the same page what a few terms mean throughout this article:">
-<link rel="shortcut icon" href=/favicon.ico>
-<link rel=stylesheet href=/css/theme.css>
-<meta name=theme-color content="#FFFFFF"><script src=https://cdn.jsdelivr.net/npm/@gitgraph/js crossorigin=anonymous></script>
-</head>
-<body><div id=content>
-<section id=main>
-<h1 id=title>Git Rebase vs. Merge</h1>
-<div class=post-details>
-<span>📆</span>
+Before I go on, let&rsquo;s get on the same page what a few terms mean throughout this article:"><link rel="shortcut icon" href=/favicon.ico><link rel=stylesheet href=/css/theme.css><meta name=theme-color content="#FFFFFF"><script src=https://cdn.jsdelivr.net/npm/@gitgraph/js crossorigin=anonymous></script></head><body><div id=content><section id=main><h1 id=title>Git Rebase vs. Merge</h1><div class=post-details><span>📆</span>
 <time datetime="2021-11-04 21:27:38 +0200 +0200">Thursday, November 4, 2021</time>
-<span>⏱️</span> 5 min read
+<span>⏱️</span> 4 min read
 <span>📚</span> published in <a href=/categories/git>git</a>
-and <a href=/categories/software-engineering>software engineering</a>
-</div>
-<div>
-<article id=content><p>In every team I&rsquo;ve been part of for the last few years we&rsquo;ve always had a debate
+and <a href=/categories/software-engineering>software engineering</a></div><div><article id=content><p>In every team I&rsquo;ve been part of for the last few years we&rsquo;ve always had a debate
 sooner or later if we should use a <code>git merge</code> or <code>git rebase</code> to keep
-a branch up-to-date with it&rsquo;s source branch.</p>
-<p>This post sheds some light on the pros and cons of both and my opinion on what
-you should use for your team.</p>
-<p>Before I go on, let&rsquo;s get on the same page what a few terms mean throughout this article:</p>
-<ul>
-<li><strong>public branch</strong>: a stable branch where changes come together. It&rsquo;s usually a protected
+a branch up-to-date with it&rsquo;s source branch.</p><p>This post sheds some light on the pros and cons of both and my opinion on what
+you should use for your team.</p><p>Before I go on, let&rsquo;s get on the same page what a few terms mean throughout this article:</p><ul><li><strong>public branch</strong>: a stable branch where changes come together. It&rsquo;s usually a protected
 branch and history rewrites are forbidden. In the simplest workflow this branch is
-often called <code>main</code>.</li>
-<li><strong>non-public branch</strong>: every other branch next to the <em>public branches</em>.
-These may be feature branches, bugfix branches, &mldr; you name them.</li>
-<li><strong>source branch</strong>: the branch from where another branch was created from.
-Most often this is a <em>public branch</em>.</li>
-<li><strong>target branch</strong>: the branch where another branch should be merged into.
-Most often this is a <em>public branch</em> and the same as the <em>source branch</em>.</li>
-</ul>
-<p><strong>tl;dr:</strong> in the summary <a href=#summary>here</a>.</p>
-<h2 id=the-situation>The Situation</h2>
-<p>When we develop a change, be it a new feature or a a bugfix, we usually create a dedicated
+often called <code>main</code>.</li><li><strong>non-public branch</strong>: every other branch next to the <em>public branches</em>.
+These may be feature branches, bugfix branches, &mldr; you name them.</li><li><strong>source branch</strong>: the branch from where another branch was created from.
+Most often this is a <em>public branch</em>.</li><li><strong>target branch</strong>: the branch where another branch should be merged into.
+Most often this is a <em>public branch</em> and the same as the <em>source branch</em>.</li></ul><p><strong>tl;dr:</strong> in the summary <a href=#summary>here</a>.</p><h2 id=the-situation>The Situation</h2><p>When we develop a change, be it a new feature or a a bugfix, we usually create a dedicated
 short living branch for this particular changeset.
 Let&rsquo;s assume we created a new feature branch called <code>feature/spaceship</code> based on the <code>main</code> branch.
-The goal is to implement that <em>spaceship</em> and eventually merge it back into the <code>main</code> branch.</p>
-<p>Developing a <em>spaceship</em> certainly takes some time and our colleagues already continued merging
+The goal is to implement that <em>spaceship</em> and eventually merge it back into the <code>main</code> branch.</p><p>Developing a <em>spaceship</em> certainly takes some time and our colleagues already continued merging
 other changes into <code>main</code> in the meantime. One particular feature, the <em>engine framework</em>
 is especially interesting for us and we need to get these changes somehow
-into our <code>feature/spaceship</code> branch.</p>
-<div id=gitgraph-container-baseline class=gitgraph></div>
-<figcaption>Situation with new commits on main</figcaption>
-<script>(function(){var c=GitgraphJS.templateExtend(GitgraphJS.TemplateName.Metro,{commit:{message:{displayAuthor:!1}}});const d=document.getElementById("gitgraph-container-baseline"),b=GitgraphJS.createGitgraph(d,{template:c}),a=b.branch("main");a.commit("Initial Commit"),a.commit("Add README");const e=b.branch("feature/spaceship");e.commit("Implement spaceship blueprint"),a.commit("Implement engine framework")})()</script>
-<p>To get those new changes from <code>main</code> into our <code>feature/spaceship</code> branch, git provides us
-a variety of options. We&rsquo;ll look at the most promising ones: <em>merge</em> and <em>rebase</em>.</p>
-<h2 id=merging-changes-into-feature-branch>Merging changes into feature branch</h2>
-<p>The most intuitive one may be to perform a <em>merge</em><sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>. However, when performing a <em>merge</em>
-we&rsquo;ll end up with a new merge commit<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup> on our <code>feature/spaceship</code> branch:</p>
-<div id=gitgraph-container-merge-into-feature-branch class=gitgraph></div>
-<figcaption>Merge main changes into feature branch</figcaption>
-<script>(function(){var d=GitgraphJS.templateExtend(GitgraphJS.TemplateName.Metro,{commit:{message:{displayAuthor:!1}}});const e=document.getElementById("gitgraph-container-merge-into-feature-branch"),b=GitgraphJS.createGitgraph(e,{template:d}),a=b.branch("main");a.commit("Initial Commit"),a.commit("Add README");const c=b.branch("feature/spaceship");c.commit("Implement spaceship blueprint"),a.commit("Implement engine framework"),c.merge(a,"Merge updates from main into feature branch")})()</script>
-<p>We might be okay with that for a single update, but what if we have to merge multiple
-times? Every single time we&rsquo;d get another merge commit, like illustrated here:</p>
-<div id=gitgraph-container-merge-multiple-times-into-feature-branch class=gitgraph></div>
-<figcaption>Merge main changes into feature branch multiple times</figcaption>
-<script>(function(){var d=GitgraphJS.templateExtend(GitgraphJS.TemplateName.Metro,{commit:{message:{displayAuthor:!1}}});const e=document.getElementById("gitgraph-container-merge-multiple-times-into-feature-branch"),c=GitgraphJS.createGitgraph(e,{template:d}),a=c.branch("main");a.commit("Initial Commit"),a.commit("Add README");const b=c.branch("feature/spaceship");b.commit("Implement spaceship blueprint"),a.commit("Implement engine framework"),b.merge(a,"Merge updates from main into feature branch"),b.commit("Implement spaceship thruster"),a.commit("Improve engine framework"),b.merge(a,"Merge updates from main into feature branch"),b.commit("Implement spaceship landing platform"),a.commit("Fix threading in engine framework"),b.merge(a,"Merge updates from main into feature branch")})()</script>
-<p>This massively pollutes our <code>feature/spaceship</code> branch with unnecessary details about when
-we&rsquo;ve updated our branch.</p>
-<p>This gets especially annoying for reviewers when we want to merge back our <code>feature/spaceship</code>
-branch into <code>main</code>.</p>
-<p>In the above figure a reviewer who looks at the change set is often
+into our <code>feature/spaceship</code> branch.</p><div id=gitgraph-container-baseline class=gitgraph></div><figcaption>Situation with new commits on main</figcaption><script>(function(){var n=GitgraphJS.templateExtend(GitgraphJS.TemplateName.Metro,{commit:{message:{displayAuthor:!1}}});const s=document.getElementById("gitgraph-container-baseline"),t=GitgraphJS.createGitgraph(s,{template:n}),e=t.branch("main");e.commit("Initial Commit"),e.commit("Add README");const o=t.branch("feature/spaceship");o.commit("Implement spaceship blueprint"),e.commit("Implement engine framework")})()</script><p>To get those new changes from <code>main</code> into our <code>feature/spaceship</code> branch, git provides us
+a variety of options. We&rsquo;ll look at the most promising ones: <em>merge</em> and <em>rebase</em>.</p><h2 id=merging-changes-into-feature-branch>Merging changes into feature branch</h2><p>The most intuitive one may be to perform a <em>merge</em><sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>. However, when performing a <em>merge</em>
+we&rsquo;ll end up with a new merge commit<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup> on our <code>feature/spaceship</code> branch:</p><div id=gitgraph-container-merge-into-feature-branch class=gitgraph></div><figcaption>Merge main changes into feature branch</figcaption><script>(function(){var s=GitgraphJS.templateExtend(GitgraphJS.TemplateName.Metro,{commit:{message:{displayAuthor:!1}}});const o=document.getElementById("gitgraph-container-merge-into-feature-branch"),t=GitgraphJS.createGitgraph(o,{template:s}),e=t.branch("main");e.commit("Initial Commit"),e.commit("Add README");const n=t.branch("feature/spaceship");n.commit("Implement spaceship blueprint"),e.commit("Implement engine framework"),n.merge(e,"Merge updates from main into feature branch")})()</script><p>We might be okay with that for a single update, but what if we have to merge multiple
+times? Every single time we&rsquo;d get another merge commit, like illustrated here:</p><div id=gitgraph-container-merge-multiple-times-into-feature-branch class=gitgraph></div><figcaption>Merge main changes into feature branch multiple times</figcaption><script>(function(){var s=GitgraphJS.templateExtend(GitgraphJS.TemplateName.Metro,{commit:{message:{displayAuthor:!1}}});const o=document.getElementById("gitgraph-container-merge-multiple-times-into-feature-branch"),n=GitgraphJS.createGitgraph(o,{template:s}),e=n.branch("main");e.commit("Initial Commit"),e.commit("Add README");const t=n.branch("feature/spaceship");t.commit("Implement spaceship blueprint"),e.commit("Implement engine framework"),t.merge(e,"Merge updates from main into feature branch"),t.commit("Implement spaceship thruster"),e.commit("Improve engine framework"),t.merge(e,"Merge updates from main into feature branch"),t.commit("Implement spaceship landing platform"),e.commit("Fix threading in engine framework"),t.merge(e,"Merge updates from main into feature branch")})()</script><p>This massively pollutes our <code>feature/spaceship</code> branch with unnecessary details about when
+we&rsquo;ve updated our branch.</p><p>This gets especially annoying for reviewers when we want to merge back our <code>feature/spaceship</code>
+branch into <code>main</code>.</p><p>In the above figure a reviewer who looks at the change set is often
 only interested in the <code>Implement spaceship blueprint</code>, <code>Implement spaceship thruster</code>
 and <code>Implement spaceship landing platform</code> commits. However, the <code>feature/spaceship</code>
 branch at this point contains all the <code>Merge updates from main into feature branch</code>
-merge commits.</p>
-<h2 id=rebasing-feature-branch-onto-changes>Rebasing feature branch onto changes</h2>
-<p>Another option would be to <em>rebase</em> our <code>feature/spaceship</code> branch onto the latest
+merge commits.</p><h2 id=rebasing-feature-branch-onto-changes>Rebasing feature branch onto changes</h2><p>Another option would be to <em>rebase</em> our <code>feature/spaceship</code> branch onto the latest
 version of <code>main</code>. A <em>rebase</em> always implies that the history of the <code>feature/spaceship</code>
 branch has to be rewritten. Which in most situation is absolutely fine, because
-<code>feature/spaceship</code> is a <em>non-public branch</em> and no one cares.</p>
-<p>Using a <em>rebase</em> instead of a <em>merge</em> effectively avoids the merge commit and leaves no
-traces about the synchronization history of the feature branch with the source branch.</p>
-<p>Reusing the first merge example here, and performing a <code>rebase</code> instead of a <code>merge</code> would
-lead to the following graph:</p>
-<div id=gitgraph-container-rebase-feature-branch-onto-changes class=gitgraph></div>
-<figcaption>Rebase feature branch onto main</figcaption>
-<script>(function(){var c=GitgraphJS.templateExtend(GitgraphJS.TemplateName.Metro,{commit:{message:{displayAuthor:!1}}});const d=document.getElementById("gitgraph-container-rebase-feature-branch-onto-changes"),b=GitgraphJS.createGitgraph(d,{template:c}),a=b.branch("main");a.commit("Initial Commit"),a.commit("Add README"),a.commit("Implement engine framework");const e=b.branch("feature/spaceship");e.commit("Implement spaceship blueprint")})()</script>
-<h2 id=summary>Summary</h2>
-<p>The git history is a valuable tool to reason about the work which has been done over time.
+<code>feature/spaceship</code> is a <em>non-public branch</em> and no one cares.</p><p>Using a <em>rebase</em> instead of a <em>merge</em> effectively avoids the merge commit and leaves no
+traces about the synchronization history of the feature branch with the source branch.</p><p>Reusing the first merge example here, and performing a <code>rebase</code> instead of a <code>merge</code> would
+lead to the following graph:</p><div id=gitgraph-container-rebase-feature-branch-onto-changes class=gitgraph></div><figcaption>Rebase feature branch onto main</figcaption><script>(function(){var n=GitgraphJS.templateExtend(GitgraphJS.TemplateName.Metro,{commit:{message:{displayAuthor:!1}}});const s=document.getElementById("gitgraph-container-rebase-feature-branch-onto-changes"),t=GitgraphJS.createGitgraph(s,{template:n}),e=t.branch("main");e.commit("Initial Commit"),e.commit("Add README"),e.commit("Implement engine framework");const o=t.branch("feature/spaceship");o.commit("Implement spaceship blueprint")})()</script><h2 id=summary>Summary</h2><p>The git history is a valuable tool to reason about the work which has been done over time.
 Every <em>non fast-forward merge</em> introduces a merge commit on the <em>target branch</em> which adds
-an additional lineage to the git history<sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup>.</p>
-<p>When merging from <em>public</em> to <em>non-public</em> branches and vice-versa the history becomes
+an additional lineage to the git history<sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup>.</p><p>When merging from <em>public</em> to <em>non-public</em> branches and vice-versa the history becomes
 unnecessarily complicated and it becomes hard to reason about it.
 In addition, and especially, for active projects and/or longer-living <em>non-public</em> branches,
 multiple synchronizations with a <em>public</em> branch may be performed.
-When using merges, this would introduce a merge commit every single time on the <em>non-public</em> branch.</p>
-<p><strong>Therefore, a <code>git rebase</code> should be used to synchronize the <em>non-public</em> branches with <em>public</em> branches.</strong>
+When using merges, this would introduce a merge commit every single time on the <em>non-public</em> branch.</p><p><strong>Therefore, a <code>git rebase</code> should be used to synchronize the <em>non-public</em> branches with <em>public</em> branches.</strong>
 This ensures a linear history in the <em>non-public</em> branch.
 When submitting the changes from a <em>non-public</em> branch back to a <em>public</em> branch use a Pull- or Merge Request
 and use an actual merge there.
 This will introduce a single merge commit on the <em>public</em> branch which is okay,
-because the reference to the <em>non-public</em> branch is still intact.</p>
-<section class=footnotes role=doc-endnotes>
-<hr>
-<ol>
-<li id=fn:1 role=doc-endnote>
-<p>to a lot of people probably because a <code>merge</code> is often introduced first when learning
-git and concepts like Merge / Pull Request usually perform a merge, too.&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
-</li>
-<li id=fn:2 role=doc-endnote>
-<p>for no fast-forward merges. The merge commit will have two parents,
-one for each of the branches.&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
-</li>
-<li id=fn:3 role=doc-endnote>
-<p>a new lineage because a merge commit has two parents&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
-</article>
-</div>
-</section>
-<aside id=meta></aside>
-</div><footer>
-<hr>
-© Timo Furrer | <a href=/>Home</a> | <a href=/posts>Posts</a> | <a href=/categories>Categories</a> | <a href=https://www.istockphoto.com/de/fotos/penguin>Penguin Photos</a>
-</footer>
-</body>
-</html>
+because the reference to the <em>non-public</em> branch is still intact.</p><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>to a lot of people probably because a <code>merge</code> is often introduced first when learning
+git and concepts like Merge / Pull Request usually perform a merge, too.&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p>for no fast-forward merges. The merge commit will have two parents,
+one for each of the branches.&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:3><p>a new lineage because a merge commit has two parents&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></article></div></section><aside id=meta></aside></div><footer><hr>© Timo Furrer | <a href=/>Home</a> | <a href=/posts>Posts</a> | <a href=/categories>Categories</a> | <a href=https://www.istockphoto.com/de/fotos/penguin>Penguin Photos</a></footer></body></html>
