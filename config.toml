@@ -15,21 +15,21 @@ footer = "&copy; Timo Furrer | GPG: [3F3C EA38 A36C A8E9](https://keybase.io/tux
 name = "E-Mail"
 url = "mailto:tuxtimo@gmail.com"
 
+[params.social.gitlab]
+name = "GitLab"
+url = "https://gitlab.com/timofurrer"
+
 [params.social.github]
 name = "GitHub"
 url = "https://github.com/timofurrer"
 
-[params.social.gitlab]
-name = "GitLab"
-url = "https://gitlab.com/tuxtimo"
-
 [params.social.twitter]
 name = "Twitter"
-url = "https://twitter.com/tuxtimo"
+url = "https://twitter.com/timofurrer"
 
 [params.social.linkedin]
 name = "LinkedIn"
-url = "https://www.linkedin.com/in/timo-furrer-4bb13362"
+url = "https://www.linkedin.com/in/timofurrer"
 
 [params.publicCDN.gitGraph]
 javascript = '<script src="https://cdn.jsdelivr.net/npm/@gitgraph/js" crossorigin="anonymous"></script>'
